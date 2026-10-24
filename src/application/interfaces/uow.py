@@ -1,0 +1,13 @@
+from typing import Protocol
+
+from application.interfaces.task_repository import TaskRepositoryProtocol
+
+class UnitOfWorkProtocol(Protocol):
+    tasks: TaskRepositoryProtocol
+
+    def __enter__(self) -> "UnitOfWorkProtocol": ...
+    def __exit__(self, exc_type: type[BaseException]|None, exc: BaseException|None, tb: TracebackType|None) -> None: ...
+
+    def commit(self) -> None: ...
+    def rollback(self) -> None: ...
+
